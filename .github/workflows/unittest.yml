@@ -1,7 +1,7 @@
 name: Pruebas Unitarias Java
 on: [push, pull_request]
 jobs:
-    test:
+    build:
         runs-on: ubuntu-latest
 
         steps:
@@ -12,5 +12,14 @@ jobs:
           with:
             distribution: 'temurin'
             java-version: '17'
-        - name: Ejecutar pruebas
-          run: mvn test
+
+        - name: Cache Maven packages
+          uses: actions/cache@v3
+          with:
+           path: ~/.m2/repository
+           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+           restore-keys: |
+             ${{ runner.os }}-maven-                  
+
+        - name: Ejecutar pruebas Selenium
+          run: mvn clear test

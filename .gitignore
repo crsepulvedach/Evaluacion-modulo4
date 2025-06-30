@@ -1,5 +1,6 @@
 # Dependencias
 /target
+/out
 
 # Builds
 /dist
