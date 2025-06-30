@@ -22,4 +22,4 @@ jobs:
              ${{ runner.os }}-maven-                  
 
         - name: Ejecutar pruebas Selenium
-          run: mvn clear test
+          run: mvn clean test
