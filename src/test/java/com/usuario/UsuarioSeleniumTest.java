@@ -1,13 +1,10 @@
 package com.usuario;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
-
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,9 +14,14 @@ public class UsuarioSeleniumTest {
 
     @BeforeEach
     public void setup() {
-        // WebDriverManager se encarga de bajar y configurar el driver automáticamente
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
+        driver = new ChromeDriver(options);
     }
 
     @Test
@@ -30,7 +32,7 @@ public class UsuarioSeleniumTest {
 
     @AfterEach
     public void tearDown() {
-        if(driver != null) {
+        if (driver != null) {
             driver.quit();
         }
     }
