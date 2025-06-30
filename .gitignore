@@ -1,0 +1,24 @@
+# Dependencias
+/target
+
+# Builds
+/dist
+/build
+
+# Logs
+*.log
+
+# Tests y cobertura
+/coverage
+
+# Configs de sistema
+.DS_Store
+.env
+.env.local
+*.swp
+
+# VS Code
+.vscode/
+
+# Sonar
+.mvn/
