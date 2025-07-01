@@ -22,7 +22,8 @@ public class Usuario {
         this.peso = nuevoPeso;
     }
 
-    public void mostrarInformacion() {
-        System.out.println("Usuario: " + nombre + ", Peso Actual: " + peso + " kg");
+    public String mostrarInformacion() {
+        return "Usuario: " + nombre + ", Peso Actual: " + peso + " kg";
     }
+
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -17,13 +18,20 @@ public class UsuarioSeleniumTest {
 
     @BeforeAll
     public static void startServer() throws InterruptedException {
-        serverThread = new Thread(() -> Servidor.main(null));
+        serverThread = new Thread(() -> {
+            try {
+                Servidor.main(null);
+            } catch (IOException e) {
+                e.printStackTrace(); // o loguearlo, como prefieras
+            }
+        });
         serverThread.setDaemon(true);
         serverThread.start();
 
         // Esperar a que el servidor esté arriba
         Thread.sleep(2000);
     }
+
 
     @AfterAll
     public static void stopServer() {

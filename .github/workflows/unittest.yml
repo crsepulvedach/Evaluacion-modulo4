@@ -23,3 +23,23 @@ jobs:
 
         - name: Ejecutar pruebas Selenium
           run: mvn clean test
+
+        - name: Analisis SonarQube
+          env:
+           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          run: |
+           mvn sonar:sonar \
+           -Dsonar.projectKey=evaluacion-modulo4 \
+           -Dsonar.host.url=https://b81d-200-112-33-32.ngrok-free.app \
+           -Dsonar.login=$SONAR_TOKEN    
+        - name: Crear issue si fallan las pruebas
+          if: failure()
+          uses: dacbd/create-issue-action@v1
+          with:
+            title: "❌ Falla en pruebas Java"
+            body: |
+              Las pruebas fallaron en el workflow **${{ github.workflow }}**  
+              Commit: ${{ github.sha }}  
+              Revisa: [Run link](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
